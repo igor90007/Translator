@@ -1,9 +1,9 @@
 import { AppRegistry } from 'react-native'
 import { createAppContainer, NavigationContainerComponent } from 'react-navigation'
 
-import { createAppComponentProvider } from 'src/appComponentProvider'
+import { createAppComponentProvider } from './appComponentProvider'
 
-import Navigator from 'src/config/Routes'
+import Navigator from './config/Routes'
 
 export default class Application {
   private static _instance: Application
@@ -24,7 +24,7 @@ export default class Application {
 
   bootstrap() {
     const AppContainer = createAppContainer(Navigator)
-    AppRegistry.registerComponent('DemoCurrencies', createAppComponentProvider(this, AppContainer))
+    AppRegistry.registerComponent('AwesomeProject', createAppComponentProvider(this, AppContainer))
   }
 
   setNavigator(navigator: NavigationContainerComponent) {

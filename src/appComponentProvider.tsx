@@ -3,9 +3,9 @@ import React from 'react'
 import { ComponentProvider } from 'react-native'
 import { NavigationContainer, NavigationContainerComponent } from 'react-navigation'
 
-import { IApplication } from 'src/types'
+import { IApplication } from './types'
 
-import NavigatorService from 'src/api/Navigation/NavigationService'
+import NavigatorService from './api/Navigation/NavigationService'
 
 export function createAppComponentProvider(
   app: IApplication,

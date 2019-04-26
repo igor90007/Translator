@@ -1,7 +1,7 @@
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation'
 
-import AuthLoading from 'src/containers/General/AuthLoading'
-import Main from 'src/containers/General/Main'
+import AuthLoading from '../containers/General/AuthLoading'
+import Main from '../containers/General/Main'
 
 const AppStack = createStackNavigator(
   {
