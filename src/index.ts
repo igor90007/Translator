@@ -18,7 +18,7 @@ export default class Application {
   private _navigator: NavigationContainerComponent | undefined
 
   get navigator(): NavigationContainerComponent {
-    if (!this._navigator) throw new Error('Navigator still not settled')
+    if (!this._navigator) throw new Error('Navigator still not set')
     return this._navigator
   }
 

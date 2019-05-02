@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { Text } from 'react-native'
+import { Text, StyleProp, TextStyle } from 'react-native'
 
 import styles from './styles'
 
-interface Params {
+export interface ITextProps extends Text {
   text: string
-  additionalStyles: object
+  additionalStyles?: StyleProp<TextStyle>
 }
 
-const DefaultText = (params: Params) => (
-  <Text style={[styles.text, params.additionalStyles]}>{params.text}</Text>
+const DefaultText: React.FC<ITextProps> = ({ text, additionalStyles }) => (
+  <Text style={[styles.text, additionalStyles]}>{text}</Text>
 )
 
 export default DefaultText
