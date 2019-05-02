@@ -1,1 +1,1 @@
-Code review results will be either in pull requests or as issues.
+Code review results exist either as draft pull requests or as issues. Merge requests possible only after code review. It needs for I can do a review before directly getting hit something in the master branch. Merge occurs only for PRs passed review. There are always draft pull requests for starting new features etc. Every fixed issue is a separate PR.
