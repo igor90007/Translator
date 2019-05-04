@@ -4,6 +4,9 @@ import { createAppContainer, NavigationContainerComponent } from 'react-navigati
 import { createAppComponentProvider } from './appComponentProvider'
 
 import Navigator from './config/Routes'
+import theme from './config/Theme'
+
+theme()
 
 export default class Application {
   private static _instance: Application
