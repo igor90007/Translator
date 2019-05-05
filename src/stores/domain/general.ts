@@ -1,11 +1,11 @@
-import { observable, action } from 'mobx'
+import { action, observable } from 'mobx'
 
-import { InputsModel, IMobxStore } from 'src/models/InputsModel'
+import { ILanguageData, InputsModel } from 'src/models/InputsModel'
 
 class AuthStore {
   @observable offline = true
 
-  @observable inputsData: IMobxStore = new InputsModel({
+  @observable inputsData: ILanguageData = new InputsModel({
     languageSource: '',
     languageTranslated: '',
   })
@@ -14,7 +14,7 @@ class AuthStore {
     this.offline = status
   }
 
-  @action setInputs = (data: IMobxStore) => {
+  @action setInputs = (data: ILanguageData) => {
     const keys = Object.keys(data)
     keys.forEach((key: string) => {
       this.inputsData[key] = data[key]
