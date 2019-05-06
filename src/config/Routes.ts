@@ -1,15 +1,15 @@
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 
-import AuthLoading from '../containers/General/AuthLoading'
-import Main from '../containers/General/Main'
+import AuthLoading from 'src/containers/General/AuthLoading'
+import Main from 'src/containers/General/Main'
 
 const AppStack = createStackNavigator(
   {
     Main: {
-      screen: Main,
       navigationOptions: {
         header: null,
       },
+      screen: Main,
     },
   },
   {
@@ -19,8 +19,8 @@ const AppStack = createStackNavigator(
 
 const Navigator = createSwitchNavigator(
   {
-    AuthLoading,
     App: AppStack,
+    AuthLoading,
   },
   {
     initialRouteName: 'AuthLoading',

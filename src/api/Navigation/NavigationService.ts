@@ -1,27 +1,27 @@
 import { NavigationActions } from 'react-navigation'
 
-interface Dispatch {
+interface IDispatch {
   dispatch(param: object): void
 }
 
-interface Navigator {
-  navigation: Dispatch
-  setTopLevelNavigator(navigatorRef: Dispatch): void
+interface INavigator {
+  navigation: IDispatch
+  setTopLevelNavigator(navigatorRef: IDispatch): void
   navigate(routeName: string, params: object): void
 }
 
-const navigator: Navigator = {
-  navigation: { dispatch: () => null },
-  setTopLevelNavigator: (navigatorRef) => {
-    navigator.navigation = navigatorRef
-  },
+const navigator: INavigator = {
   navigate: (routeName, params) => {
     navigator.navigation.dispatch(
       NavigationActions.navigate({
-        routeName,
         params,
+        routeName,
       }),
     )
+  },
+  navigation: { dispatch: () => null },
+  setTopLevelNavigator: (navigatorRef) => {
+    navigator.navigation = navigatorRef
   },
 }
 
