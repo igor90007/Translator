@@ -3,7 +3,10 @@ import { createAppContainer, NavigationContainerComponent } from 'react-navigati
 
 import { createAppComponentProvider } from './appComponentProvider'
 
-import Navigator from './config/Routes'
+import Navigator from 'src/config/Routes'
+import theme from 'src/config/Theme'
+
+theme()
 
 export default class Application {
   private static _instance: Application
@@ -18,7 +21,7 @@ export default class Application {
   private _navigator: NavigationContainerComponent | undefined
 
   get navigator(): NavigationContainerComponent {
-    if (!this._navigator) throw new Error('Navigator still not settled')
+    if (!this._navigator) throw new Error('Navigator still not set')
     return this._navigator
   }
 

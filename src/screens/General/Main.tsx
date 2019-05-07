@@ -1,37 +1,35 @@
 import React from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
-import { Text, View } from 'react-native'
+import { Button, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-class General extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-      </View>
-    )
-  }
+import { DefaultText } from 'src/components/Text'
+
+interface IProps {
+  translate(): void
 }
 
-export default General
+const General: React.FC<IProps> = ({ translate }) => {
+  return (
+    <View style={styles.container}>
+      <DefaultText additionalStyles={styles.welcome}>Welcome to React Native</DefaultText>
+      <Button onPress={translate} title="Translate" />
+    </View>
+  )
+}
 
 const styles = EStyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '$background',
+    flex: 1,
+    justifyContent: 'center',
   },
   welcome: {
-    fontSize: '$textDefault',
-    textAlign: 'center',
     margin: wp('2%'),
-  },
-  instructions: {
     textAlign: 'center',
-    color: '$textColor',
-    marginBottom: wp('1%'),
   },
 })
+
+export default General
