@@ -1,16 +1,21 @@
 import React from 'react'
+import EStyleSheet from 'react-native-extended-stylesheet'
 
-import { Text, TextProps } from 'react-native'
-
-import styles from './styles'
+import { StyleProp, Text, TextProps, TextStyle } from 'react-native'
 
 export interface ITextProps extends TextProps {
-  text: string
-  additionalStyles: object
+  additionalStyles?: StyleProp<TextStyle>
 }
 
-const DefaultText = (params: ITextProps) => (
-  <Text style={[styles.text, params.additionalStyles]}>{params.text}</Text>
+const DefaultText: React.FC<ITextProps> = ({ children, additionalStyles }) => (
+  <Text style={[styles.text, additionalStyles]}>{children}</Text>
 )
+
+const styles = EStyleSheet.create({
+  text: {
+    color: '$textColor',
+    fontSize: '$textDefault',
+  },
+})
 
 export default DefaultText
