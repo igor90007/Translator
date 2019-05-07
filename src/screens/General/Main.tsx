@@ -13,7 +13,7 @@ interface IProps {
 const General: React.FC<IProps> = ({ translate }) => {
   return (
     <View style={styles.container}>
-      <DefaultText additionalStyles={styles.welcome}>Welcome to React Native</DefaultText>
+      <DefaultText additionalStyles={styles.welcome}>Welcome to React Native.</DefaultText>
       <Button onPress={translate} title="Translate" />
     </View>
   )
