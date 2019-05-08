@@ -10,6 +10,6 @@ export const getAuthenticatedData = async (url: string, apiMethod: string, data?
 
     return result
   } catch (err) {
-    return JSON.stringify(err)
+    return err
   }
 }
