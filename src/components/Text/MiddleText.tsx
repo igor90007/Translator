@@ -3,11 +3,11 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 
 import { StyleProp, Text, TextProps, TextStyle } from 'react-native'
 
-export interface ITextProps extends TextProps {
+export interface IMiddleTextProps extends TextProps {
   additionalStyles?: StyleProp<TextStyle>
 }
 
-const DefaultText: React.FC<ITextProps> = ({ children, additionalStyles }) => (
+export const MiddleText: React.FC<IMiddleTextProps> = ({ children, additionalStyles }) => (
   <Text style={[styles.text, additionalStyles]}>{children}</Text>
 )
 
@@ -17,5 +17,3 @@ const styles = EStyleSheet.create({
     fontSize: '$textDefault',
   },
 })
-
-export default DefaultText
