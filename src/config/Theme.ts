@@ -10,8 +10,9 @@ const theme = () =>
     $background: '#ECE6F2',
 
     // Text
-    $textColor: '#490074',
-    $borderWidth: 2 * StyleSheet.hairlineWidth,
+    $borderWidth: StyleSheet.hairlineWidth * 4,
+    $grey: 'rgba(0,0,0,0.1)',
+    $textColor: '#2196F3',
 
     // Font size
     $textDefault: wp('4%'),
