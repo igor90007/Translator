@@ -1,32 +1,52 @@
-import { observable, action } from 'mobx'
+import NetInfo from '@react-native-community/netinfo'
+import { action, observable } from 'mobx'
+import { Platform } from 'react-native'
 
-import InputsModel from 'src/models/InputsModel'
+import { ILanguageData, InputsModel } from 'src/models/InputsModel'
 
-interface Data {
-  [key: string]: string
-  languageSource: string
-  languageTranslated: string
+const checkConnectivity = () => {
+  // For Android devices
+  if (Platform.OS === 'android') {
+    return NetInfo.isConnected.fetch().then((isConnected) => {
+      return isConnected
+    })
+  }
+
+  // For iOS devices
+  return NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChange)
 }
 
-interface IMobxStore {
-  [key: string]: any
-  languageSource: string
-  languageTranslated: string
+const handleFirstConnectivityChange = (isConnected: boolean) => {
+  NetInfo.isConnected.removeEventListener('connectionChange', handleFirstConnectivityChange)
+
+  return isConnected
 }
 
-class AuthStore {
+class GeneralStore {
   @observable offline = true
 
-  @observable inputsData: IMobxStore = new InputsModel({
+  @observable fromLanguageCode = ''
+
+  @observable toLanguageCode = 'uk'
+
+  @observable inputsData: ILanguageData = new InputsModel({
     languageSource: '',
     languageTranslated: '',
   })
 
-  @action setConnection = (status: boolean) => {
-    this.offline = status
+  @action checkConnection = () => {
+    setInterval(async () => {
+      const connection = await checkConnectivity()
+
+      if (connection) {
+        this.offline = false
+      } else {
+        this.offline = true
+      }
+    }, 9999)
   }
 
-  @action setInputs = (data: Data) => {
+  @action setInputs = (data: ILanguageData) => {
     const keys = Object.keys(data)
     keys.forEach((key: string) => {
       this.inputsData[key] = data[key]
@@ -34,4 +54,4 @@ class AuthStore {
   }
 }
 
-export default AuthStore
+export default GeneralStore
