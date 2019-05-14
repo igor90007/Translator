@@ -1,8 +1,6 @@
-import credentialsData from 'src/credentials.json'
 import stores from 'src/stores'
 
 const Settings = {
-  credentials: credentialsData,
   languages: [
     { Language: 'Detect Language', Code: '' },
     { Language: 'Arabic', Code: 'ar' },
