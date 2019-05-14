@@ -94,7 +94,7 @@ const General: React.FC<IProps> = ({
           })}
         />
         <TouchableOpacity style={styles.languageShaker} onPress={shakeLanguages}>
-          <Text>></Text>
+          <Text>{`>`}</Text>
           <Text>{`<`}</Text>
         </TouchableOpacity>
         <FlatList
