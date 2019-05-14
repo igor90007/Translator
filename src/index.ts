@@ -1,3 +1,4 @@
+// import { observer } from 'mobx-react'
 import { AppRegistry } from 'react-native'
 import { createAppContainer, NavigationContainerComponent } from 'react-navigation'
 
@@ -5,6 +6,7 @@ import { createAppComponentProvider } from './appComponentProvider'
 
 import Navigator from './config/Routes'
 
+// @observer
 export default class Application {
   private static _instance: Application
 

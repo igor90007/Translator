@@ -1,10 +1,24 @@
 import React from 'react'
 import Voice from 'react-native-voice'
 
-import { Button } from 'react-native'
+import { inject, observer } from 'mobx-react'
 
-export default class MainContainer extends React.Component {
-  constructor(props: object) {
+import Screen from '../../screens/General/Main'
+
+export interface IProps {
+  General: {
+    inputsData: { languageSource: string }
+    setInputs(data: object): void
+  }
+}
+
+export interface ISpeechResults {
+  [key: string]: any
+}
+@inject('General')
+@observer
+export default class MainContainer extends React.Component<IProps> {
+  constructor(props: IProps) {
     super(props)
     Voice.onSpeechResults = this.onSpeechResultsHandler.bind(this)
   }
@@ -14,31 +28,36 @@ export default class MainContainer extends React.Component {
   }
 
   render() {
+    const { General } = this.props
+
     return (
-      <>
-        <Button onPress={this.onStartButtonPress} title="Start recognize" />
-        <Button onPress={this.onStopPress} title="Stop recognize" />
-      </>
+      <Screen
+        languageSource={General ? General.inputsData.languageSource : ''}
+        startVoiceRecognize={this.startVoiceRecognize}
+        stopVoiceRecognize={this.stopVoiceRecognize}
+      />
     )
   }
 
-  private async onStartButtonPress() {
+  private async startVoiceRecognize() {
     try {
       await Voice.start('en-US')
     } catch (e) {
-      console.log(e, 'onStartButtonPressErr')
+      console.log(e, 'startVoiceRecognizeError')
     }
   }
 
-  private async onStopPress() {
+  private async stopVoiceRecognize() {
     try {
       await Voice.stop()
     } catch (e) {
-      console.log(e, 'onStopPressErr')
+      console.log(e, 'stopVoiceRecognizeError')
     }
   }
 
-  private onSpeechResultsHandler = (event: object) => {
-    console.log(event, 'onSpeechResultsHandler')
+  private onSpeechResultsHandler = (event: ISpeechResults) => {
+    const { General } = this.props
+
+    General.setInputs({ languageSource: event.value[event.value.length - 1] })
   }
 }

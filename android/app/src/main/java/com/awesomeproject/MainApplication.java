@@ -3,13 +3,13 @@ package com.awesomeproject;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.wenkesj.voice.VoicePackage;
+
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
+import com.wenkesj.voice.VoicePackage;
 import java.util.Arrays;
 import java.util.List;
 
