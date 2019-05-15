@@ -65,7 +65,7 @@ class GeneralStore {
     this.fromLanguageCode = fromLanguageCode
     this.toLanguageCode = toLanguageCode
     this.fromLanguageId = fromLanguageId
-    this.toLanguageId = toLanguageId
+    this.toLanguageId = toLanguageId === '0' ? '1' : toLanguageId
   }
 
   @action setFromLanguageCode = (fromLanguageCode: string, fromLanguageId: string) => {

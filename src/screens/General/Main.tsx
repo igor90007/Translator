@@ -7,6 +7,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Settings from 'src/config/Settings'
 
 export interface IProps {
+  offline: boolean
   languageSource: string
   languageTranslated: string
   fromLanguageId: string
@@ -42,6 +43,7 @@ const General: React.FC<IProps> = ({
   toLanguageId = '16',
   languageSource = '',
   languageTranslated = '',
+  offline = false,
 }) => {
   const renderFromItem: React.FC<IItemProps> = ({ item }) => {
     return (
@@ -64,6 +66,15 @@ const General: React.FC<IProps> = ({
   }
 
   const doShakeLanguages = () => {
+    this.leftList.scrollToIndex({
+      animated: true,
+      index: Number(Settings.languages[Number(toLanguageId)].key),
+    })
+    this.rightList.scrollToIndex({
+      animated: true,
+      index: Number(Settings.languages[Number(fromLanguageId)].key),
+    })
+
     shakeLanguages(
       Settings.languages[Number(toLanguageId)].Code,
       Settings.languages[Number(fromLanguageId)].Code,
@@ -86,9 +97,10 @@ const General: React.FC<IProps> = ({
 
   return (
     <View style={styles.container}>
-      <Button onPress={startRecognize} title="Start recognize" />
+      {offline && <Text style={styles.connectionLost}>connection lost</Text>}
       <View style={styles.row}>
         <FlatList
+          ref={(ref) => (this.leftList = ref)}
           data={Settings.languages}
           renderItem={renderFromItem}
           horizontal
@@ -104,10 +116,11 @@ const General: React.FC<IProps> = ({
           <Text>{`<`}</Text>
         </TouchableOpacity>
         <FlatList
+          ref={(ref) => (this.rightList = ref)}
           data={Settings.languages}
           renderItem={renderToItem}
           horizontal
-          initialScrollIndex={Number(toLanguageId)}
+          initialScrollIndex={Number(toLanguageId) - 1}
           getItemLayout={(data, index) => ({
             index,
             length: wp('13%'),
@@ -115,7 +128,10 @@ const General: React.FC<IProps> = ({
           })}
         />
       </View>
-      <Button onPress={stopVoiceRecognize} title="Stop recognize" />
+      <View style={styles.buttonRow}>
+        <Button onPress={startRecognize} title="Start recognize" />
+        <Button onPress={stopVoiceRecognize} title="Stop recognize" />
+      </View>
       <View style={styles.rowInput}>
         <TextInput
           style={styles.input}
@@ -139,12 +155,22 @@ const General: React.FC<IProps> = ({
 }
 
 const styles = EStyleSheet.create({
+  buttonRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: wp('3%'),
+    width: wp('100%'),
+  },
+  connectionLost: {
+    position: 'absolute',
+  },
   container: {
     alignItems: 'center',
-    backgroundColor: '$background',
     flex: 1,
     justifyContent: 'center',
   },
+
   input: {
     backgroundColor: '$background',
     borderColor: '$grey',
@@ -168,6 +194,8 @@ const styles = EStyleSheet.create({
     borderColor: '$grey',
     borderTopWidth: '$borderWidth',
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: wp('3%'),
     width: wp('100%'),
   },
   rowInput: {

@@ -9,13 +9,14 @@ import { translateData } from 'src/actions/general'
 
 export interface IProps {
   General: {
+    offline: boolean
     fromLanguageId: string
     toLanguageId: string
     inputsData: { languageSource: string; languageTranslated: string }
     setInputs(data: object): void
-    shakeLanguages(param1: string, param2: string): void
-    setFromLanguageCode(param: string): void
-    setToLanguageCode(param: string): void
+    shakeLanguages(param1: string, param2: string, param3: string, param4: string): void
+    setFromLanguageCode(param1: string, param2: string): void
+    setToLanguageCode(param1: string, param2: string): void
   }
 }
 
@@ -50,20 +51,21 @@ export default class MainContainer extends React.Component<IProps> {
         translate={this.translate}
         fromLanguageId={General ? General.fromLanguageId : '0'}
         toLanguageId={General ? General.toLanguageId : '16'}
+        offline={General ? General.offline : false}
       />
     )
   }
 
-  private chooseFromLanguage = (from: string) => {
+  private chooseFromLanguage = (from: string, fromLanguageId: string) => {
     const { General } = this.props
 
-    General.setFromLanguageCode(from)
+    General.setFromLanguageCode(from, fromLanguageId)
   }
 
-  private chooseToLanguage = (to: string) => {
+  private chooseToLanguage = (to: string, toLanguageId: string) => {
     const { General } = this.props
 
-    General.setToLanguageCode(to)
+    General.setToLanguageCode(to, toLanguageId)
   }
 
   private translate = async (from: string, to: string, text: string) => {
@@ -77,10 +79,15 @@ export default class MainContainer extends React.Component<IProps> {
     }
   }
 
-  private shakeLanguages = (fromLanguageCode: string, toLanguageCode: string) => {
+  private shakeLanguages = (
+    toLanguageCode: string,
+    fromLanguageCode: string,
+    toLanguageId: string,
+    fromLanguageId: string,
+  ) => {
     const { General } = this.props
 
-    General.shakeLanguages(fromLanguageCode, toLanguageCode)
+    General.shakeLanguages(toLanguageCode, fromLanguageCode, toLanguageId, fromLanguageId)
   }
 
   private startVoiceRecognize = (fromLanguageCode: string) => {
