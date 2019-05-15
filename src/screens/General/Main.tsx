@@ -1,49 +1,29 @@
 import React from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
-<<<<<<< HEAD
 import { Button, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-// Temporary
-const Settings = {
-  languages: [
-    { Language: 'Detect Language', Code: '', key: '0' },
-    { Language: 'Arabic', Code: 'ar', key: '1' },
-    { Language: 'Chinese', Code: 'zh', key: '2' },
-    { Language: 'English', Code: 'en', key: '3' },
-    { Language: 'Farsi (Persian)', Code: 'fa', key: '4' },
-    { Language: 'French', Code: 'fr', key: '5' },
-    { Language: 'German', Code: 'de', key: '6' },
-    { Language: 'Hindi', Code: 'hi', key: '7' },
-    { Language: 'Japan', Code: 'ja', key: '8' },
-    { Language: 'Kazakh', Code: 'kk', key: '9' },
-    { Language: 'Korean', Code: 'ko', key: '10' },
-    { Language: 'Polish', Code: 'pl', key: '11' },
-    { Language: 'Portuguese', Code: 'pt', key: '12' },
-    { Language: 'Russian', Code: 'ru', key: '13' },
-    { Language: 'Spanish', Code: 'es', key: '14' },
-    { Language: 'Turkish', Code: 'tr', key: '15' },
-    { Language: 'Ukrainian', Code: 'uk', key: '16' },
-  ],
-}
-//
+import Settings from 'src/config/Settings'
 
-interface IProps {
+export interface IProps {
   languageSource: string
   languageTranslated: string
   fromLanguageId: string
   toLanguageId: string
-  chooseFromLanguage(param: string): void
-  chooseToLanguage(param: string): void
-  translate(): void
-  shakeLanguages(): void
+  chooseFromLanguage(param1: string, param2: string): void
+  chooseToLanguage(param1: string, param2: string): void
+  translate(param1: string, param2: string, param3: string): void
+  shakeLanguages(param1: string, param2: string, param3: string, param4: string): void
+  startVoiceRecognize(param: string): void
+  stopVoiceRecognize(): void
+  typeTextForTranslating(param: string): void
 }
 
 interface IItem {
   Language: string
-  Code: string
   key: string
+  Code: string
 }
 
 interface IItemProps {
@@ -55,6 +35,9 @@ const General: React.FC<IProps> = ({
   shakeLanguages = () => null,
   chooseFromLanguage = () => null,
   chooseToLanguage = () => null,
+  startVoiceRecognize = () => null,
+  stopVoiceRecognize = () => null,
+  typeTextForTranslating = () => null,
   fromLanguageId = '0',
   toLanguageId = '16',
   languageSource = '',
@@ -62,41 +45,17 @@ const General: React.FC<IProps> = ({
 }) => {
   const renderFromItem: React.FC<IItemProps> = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => chooseFromLanguage(item.key)}>
+      <TouchableOpacity onPress={() => chooseFromLanguage(item.Code, item.key)}>
         <Text style={item.key === fromLanguageId ? styles.itemActiveStyle : styles.itemStyle}>
           {item.Language}
         </Text>
       </TouchableOpacity>
     )
   }
-=======
-import { Button, Text, View } from 'react-native'
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-
-export interface IProps {
-  languageSource: string
-  startVoiceRecognize(): void
-  stopVoiceRecognize(): void
-}
-
-const General: React.FC<IProps> = ({
-  startVoiceRecognize = () => null,
-  stopVoiceRecognize = () => null,
-  languageSource = 'Welcome to React Native!',
-}) => {
-  return (
-    <View style={styles.container}>
-      <Button onPress={startVoiceRecognize} title="Start recognize" />
-      <Text style={styles.welcome}>{languageSource}</Text>
-      <Button onPress={stopVoiceRecognize} title="Stop recognize" />
-    </View>
-  )
-}
->>>>>>> a71d4e85148d4ef69072d6de4260558b9ebf6a64
 
   const renderToItem: React.FC<IItemProps> = ({ item }) => {
     return item.key === '0' ? null : (
-      <TouchableOpacity onPress={() => chooseToLanguage(item.key)}>
+      <TouchableOpacity onPress={() => chooseToLanguage(item.Code, item.key)}>
         <Text style={item.key === toLanguageId ? styles.itemActiveStyle : styles.itemStyle}>
           {item.Language}
         </Text>
@@ -104,8 +63,30 @@ const General: React.FC<IProps> = ({
     )
   }
 
+  const doShakeLanguages = () => {
+    shakeLanguages(
+      Settings.languages[Number(toLanguageId)].Code,
+      Settings.languages[Number(fromLanguageId)].Code,
+      Settings.languages[Number(toLanguageId)].key,
+      Settings.languages[Number(fromLanguageId)].key,
+    )
+  }
+
+  const startRecognize = () => {
+    startVoiceRecognize(Settings.languages[Number(fromLanguageId)].Code)
+  }
+
+  const doTranslate = () => {
+    translate(
+      Settings.languages[Number(fromLanguageId)].Code,
+      Settings.languages[Number(toLanguageId)].Code,
+      languageSource,
+    )
+  }
+
   return (
     <View style={styles.container}>
+      <Button onPress={startRecognize} title="Start recognize" />
       <View style={styles.row}>
         <FlatList
           data={Settings.languages}
@@ -118,7 +99,7 @@ const General: React.FC<IProps> = ({
             offset: index * wp('13%'),
           })}
         />
-        <TouchableOpacity style={styles.languageShaker} onPress={shakeLanguages}>
+        <TouchableOpacity style={styles.languageShaker} onPress={doShakeLanguages}>
           <Text>{`>`}</Text>
           <Text>{`<`}</Text>
         </TouchableOpacity>
@@ -134,13 +115,14 @@ const General: React.FC<IProps> = ({
           })}
         />
       </View>
+      <Button onPress={stopVoiceRecognize} title="Stop recognize" />
       <View style={styles.rowInput}>
         <TextInput
           style={styles.input}
           maxLength={99}
           multiline={true}
           numberOfLines={2}
-          onChangeText={(text) => (languageSource = text)}
+          onChangeText={typeTextForTranslating}
           value={languageSource}
         />
         <TextInput
@@ -151,7 +133,7 @@ const General: React.FC<IProps> = ({
           value={languageTranslated}
         />
       </View>
-      <Button onPress={translate} title="Translate" />
+      <Button onPress={doTranslate} title="Translate" />
     </View>
   )
 }
@@ -159,20 +141,7 @@ const General: React.FC<IProps> = ({
 const styles = EStyleSheet.create({
   container: {
     alignItems: 'center',
-<<<<<<< HEAD
     backgroundColor: '$background',
-    flex: 1,
-    justifyContent: 'center',
-<<<<<<< HEAD
-  },
-  instructions: {
-    color: '$textColor',
-    marginBottom: wp('1%'),
-    textAlign: 'center',
-  },
-  welcome: {
-    fontSize: '$textDefault',
-=======
     flex: 1,
     justifyContent: 'center',
   },
@@ -209,16 +178,6 @@ const styles = EStyleSheet.create({
     flexDirection: 'row',
     marginBottom: wp('3%'),
     width: wp('100%'),
-  },
-  welcome: {
->>>>>>> 7c9b58e8564659961b2f74b3226571bdffb575a4
-=======
-  },
-  welcome: {
-    fontSize: '$textDefault',
->>>>>>> a71d4e85148d4ef69072d6de4260558b9ebf6a64
-    margin: wp('2%'),
-    textAlign: 'center',
   },
 })
 

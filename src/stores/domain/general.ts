@@ -28,6 +28,10 @@ class GeneralStore {
 
   @observable toLanguageCode = 'uk'
 
+  @observable fromLanguageId = '0'
+
+  @observable toLanguageId = '16'
+
   @observable inputsData: ILanguageData = new InputsModel({
     languageSource: '',
     languageTranslated: '',
@@ -50,6 +54,28 @@ class GeneralStore {
     keys.forEach((key: string) => {
       this.inputsData[key] = data[key]
     })
+  }
+
+  @action shakeLanguages = (
+    fromLanguageCode: string,
+    toLanguageCode: string,
+    fromLanguageId: string,
+    toLanguageId: string,
+  ) => {
+    this.fromLanguageCode = fromLanguageCode
+    this.toLanguageCode = toLanguageCode
+    this.fromLanguageId = fromLanguageId
+    this.toLanguageId = toLanguageId
+  }
+
+  @action setFromLanguageCode = (fromLanguageCode: string, fromLanguageId: string) => {
+    this.fromLanguageCode = fromLanguageCode
+    this.fromLanguageId = fromLanguageId
+  }
+
+  @action setToLanguageCode = (toLanguageCode: string, toLanguageId: string) => {
+    this.toLanguageCode = toLanguageCode
+    this.toLanguageId = toLanguageId
   }
 }
 
