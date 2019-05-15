@@ -1,3 +1,4 @@
+// import { observer } from 'mobx-react'
 import { AppRegistry } from 'react-native'
 import { createAppContainer, NavigationContainerComponent } from 'react-navigation'
 
@@ -8,6 +9,7 @@ import theme from 'src/config/Theme'
 
 theme()
 
+// @observer
 export default class Application {
   private static _instance: Application
 

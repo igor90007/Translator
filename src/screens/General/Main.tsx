@@ -1,6 +1,7 @@
 import React from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
+<<<<<<< HEAD
 import { Button, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -68,6 +69,30 @@ const General: React.FC<IProps> = ({
       </TouchableOpacity>
     )
   }
+=======
+import { Button, Text, View } from 'react-native'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+
+export interface IProps {
+  languageSource: string
+  startVoiceRecognize(): void
+  stopVoiceRecognize(): void
+}
+
+const General: React.FC<IProps> = ({
+  startVoiceRecognize = () => null,
+  stopVoiceRecognize = () => null,
+  languageSource = 'Welcome to React Native!',
+}) => {
+  return (
+    <View style={styles.container}>
+      <Button onPress={startVoiceRecognize} title="Start recognize" />
+      <Text style={styles.welcome}>{languageSource}</Text>
+      <Button onPress={stopVoiceRecognize} title="Stop recognize" />
+    </View>
+  )
+}
+>>>>>>> a71d4e85148d4ef69072d6de4260558b9ebf6a64
 
   const renderToItem: React.FC<IItemProps> = ({ item }) => {
     return item.key === '0' ? null : (
@@ -138,6 +163,7 @@ const styles = EStyleSheet.create({
     backgroundColor: '$background',
     flex: 1,
     justifyContent: 'center',
+<<<<<<< HEAD
   },
   instructions: {
     color: '$textColor',
@@ -186,6 +212,11 @@ const styles = EStyleSheet.create({
   },
   welcome: {
 >>>>>>> 7c9b58e8564659961b2f74b3226571bdffb575a4
+=======
+  },
+  welcome: {
+    fontSize: '$textDefault',
+>>>>>>> a71d4e85148d4ef69072d6de4260558b9ebf6a64
     margin: wp('2%'),
     textAlign: 'center',
   },

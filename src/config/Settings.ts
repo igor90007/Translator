@@ -1,4 +1,5 @@
 import credentialsData from 'src/credentials.json'
+import stores from 'src/stores'
 
 const Settings = {
   credentials: credentialsData,
@@ -21,6 +22,7 @@ const Settings = {
     { Language: 'Turkish', Code: 'tr' },
     { Language: 'Ukrainian', Code: 'uk' },
   ],
+  stores: stores(),
 }
 
 export default Settings
