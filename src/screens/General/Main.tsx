@@ -107,8 +107,8 @@ const General: React.FC<IProps> = ({
           initialScrollIndex={Number(fromLanguageId)}
           getItemLayout={(data, index) => ({
             index,
-            length: wp('13%'),
-            offset: index * wp('13%'),
+            length: wp('15%'),
+            offset: index * wp('15%'),
           })}
         />
         <TouchableOpacity style={styles.languageShaker} onPress={doShakeLanguages}>
@@ -123,8 +123,8 @@ const General: React.FC<IProps> = ({
           initialScrollIndex={Number(toLanguageId) - 1}
           getItemLayout={(data, index) => ({
             index,
-            length: wp('13%'),
-            offset: index * wp('13%'),
+            length: wp('14%'),
+            offset: index * wp('14%'),
           })}
         />
       </View>
@@ -164,6 +164,7 @@ const styles = EStyleSheet.create({
   },
   connectionLost: {
     position: 'absolute',
+    top: 0,
   },
   container: {
     alignItems: 'center',
