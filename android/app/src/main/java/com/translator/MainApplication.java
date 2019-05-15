@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.translator;
 
 import android.app.Application;
 
