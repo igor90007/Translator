@@ -9,6 +9,8 @@ import { translateData } from 'src/actions/general'
 
 export interface IProps {
   General: {
+    fromLanguageId: string
+    toLanguageId: string
     inputsData: { languageSource: string; languageTranslated: string }
     setInputs(data: object): void
     shakeLanguages(param1: string, param2: string): void
@@ -46,36 +48,42 @@ export default class MainContainer extends React.Component<IProps> {
         chooseFromLanguage={this.chooseFromLanguage}
         chooseToLanguage={this.chooseToLanguage}
         translate={this.translate}
-        fromLanguageId={General ? General.inputsData.languageSource : '0'}
-        toLanguageId={General ? General.inputsData.languageSource : '16'}
+        fromLanguageId={General ? General.fromLanguageId : '0'}
+        toLanguageId={General ? General.toLanguageId : '16'}
       />
     )
   }
 
-  private chooseFromLanguage(from: string) {
+  private chooseFromLanguage = (from: string) => {
     const { General } = this.props
 
     General.setFromLanguageCode(from)
   }
 
-  private chooseToLanguage(to: string) {
+  private chooseToLanguage = (to: string) => {
     const { General } = this.props
 
     General.setToLanguageCode(to)
   }
 
-  private async translate(from: string, to: string, text: string) {
-    const result = await translateData(from, to, text)
-    console.log(result, 'result')
+  private translate = async (from: string, to: string, text: string) => {
+    const { General } = this.props
+    const result = await translateData(from ? `&from=${from}` : '', to, text)
+
+    if (result.data.error === null) {
+      General.setInputs({ languageTranslated: result.data.result.translated })
+    } else {
+      General.setInputs({ languageTranslated: result.data.error })
+    }
   }
 
-  private shakeLanguages(fromLanguageCode: string, toLanguageCode: string) {
+  private shakeLanguages = (fromLanguageCode: string, toLanguageCode: string) => {
     const { General } = this.props
 
     General.shakeLanguages(fromLanguageCode, toLanguageCode)
   }
 
-  private startVoiceRecognize(fromLanguageCode: string) {
+  private startVoiceRecognize = (fromLanguageCode: string) => {
     try {
       Voice.start(fromLanguageCode) // en-US
     } catch (e) {
@@ -83,7 +91,7 @@ export default class MainContainer extends React.Component<IProps> {
     }
   }
 
-  private stopVoiceRecognize() {
+  private stopVoiceRecognize = () => {
     try {
       Voice.stop()
     } catch (e) {
@@ -99,7 +107,7 @@ export default class MainContainer extends React.Component<IProps> {
 
   private typeTextForTranslating = (languageSource: string) => {
     const { General } = this.props
-
+    console.log(General, 'result.data.result.translated1')
     General.setInputs({ languageSource })
   }
 }

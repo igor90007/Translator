@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-rootProject.name = 'AwesomeProject'
+rootProject.name = 'Translator'
 include ':react-native-voice'
 project(':react-native-voice').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-voice/android')
 include ':@react-native-community_netinfo'
 project(':@react-native-community_netinfo').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/netinfo/android')
-=======
-rootProject.name = 'Translator'
->>>>>>> 18144e131dbdace035baf4c8d87cfd302c4f3c6d
 include ':react-native-gesture-handler'
 project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
 
