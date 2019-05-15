@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { observable, action } from 'mobx'
 
 import { ILanguageData, InputsModel } from 'src/models/InputsModel'
 
