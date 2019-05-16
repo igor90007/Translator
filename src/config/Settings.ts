@@ -1,15 +1,21 @@
-import { gql } from 'apollo-boost'
+import ApolloClient from 'apollo-boost'
 
 import credentialsData from 'src/credentials.json'
 
 const Settings = {
-  GET_POKEMONS: gql(`
-    query getPokemons {
-      user @client {
-        name
-      }
-    }
-  `),
+  client: new ApolloClient({
+    resolvers: {
+      Query: {
+        fromLanguageCode: () => '',
+        fromLanguageId: () => '0',
+        languageSource: () => '',
+        languageTranslated: () => '',
+        offline: () => true,
+        toLanguageCode: () => 'uk',
+        toLanguageId: () => '16',
+      },
+    },
+  }),
   credentials: credentialsData,
   languages: [
     { Language: 'Detect Language', Code: '', key: '0' },

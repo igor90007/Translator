@@ -5,29 +5,19 @@ import { gql } from 'apollo-boost'
 import { Query } from 'react-apollo'
 import { Text } from 'react-native'
 
+import Settings from 'src/config/Settings'
 import Screen from 'src/screens/General/Main'
 
 import { translateData } from 'src/actions/general'
 
 interface IData {
-  inputsData: {
-    data: { languageSource: string; languageTranslated: string }
-  }
-  fromLanguageCode: {
-    data: string
-  }
-  fromLanguageId: {
-    data: string
-  }
-  offline: {
-    data: boolean
-  }
-  toLanguageCode: {
-    data: string
-  }
-  toLanguageId: {
-    data: string
-  }
+  languageSource: string
+  languageTranslated: string
+  fromLanguageCode: string
+  fromLanguageId: string
+  offline: boolean
+  toLanguageCode: string
+  toLanguageId: string
 }
 
 export interface ISpeechResults {
@@ -36,24 +26,13 @@ export interface ISpeechResults {
 
 const GET_DATA = gql`
   query {
-    inputsData {
-      data
-    }
-    fromLanguageCode {
-      data
-    }
-    fromLanguageId {
-      data
-    }
-    offline {
-      data
-    }
-    toLanguageCode {
-      data
-    }
-    toLanguageId {
-      data
-    }
+    languageSource @client
+    languageTranslated @client
+    fromLanguageCode @client
+    fromLanguageId @client
+    offline @client
+    toLanguageCode @client
+    toLanguageId @client
   }
 `
 
@@ -78,8 +57,8 @@ export default class MainContainer extends React.Component {
             <>
               {data && (
                 <Screen
-                  languageSource={data.inputsData.data.languageSource}
-                  languageTranslated={data.inputsData.data.languageTranslated}
+                  languageSource={data.languageSource}
+                  languageTranslated={data.languageTranslated}
                   startVoiceRecognize={this.startVoiceRecognize}
                   stopVoiceRecognize={this.stopVoiceRecognize}
                   typeTextForTranslating={this.typeTextForTranslating}
@@ -87,9 +66,9 @@ export default class MainContainer extends React.Component {
                   chooseFromLanguage={this.chooseFromLanguage}
                   chooseToLanguage={this.chooseToLanguage}
                   translate={this.translate}
-                  fromLanguageId={data.fromLanguageId.data}
-                  toLanguageId={data.toLanguageId.data}
-                  offline={data.offline.data}
+                  fromLanguageId={data.fromLanguageId}
+                  toLanguageId={data.toLanguageId}
+                  offline={data.offline}
                 />
               )}
             </>
@@ -99,24 +78,40 @@ export default class MainContainer extends React.Component {
     )
   }
 
-  private chooseFromLanguage = (from: string, fromLanguageId: string) => {
-    // const { General } = this.props
-    // General.setFromLanguageCode(from, fromLanguageId)
+  private chooseFromLanguage = (fromLanguageCode: string, fromLanguageId: string) => {
+    Settings.client.writeData({
+      data: {
+        fromLanguageCode,
+        fromLanguageId,
+      },
+    })
   }
 
-  private chooseToLanguage = (to: string, toLanguageId: string) => {
-    // const { General } = this.props
-    // General.setToLanguageCode(to, toLanguageId)
+  private chooseToLanguage = (toLanguageCode: string, toLanguageId: string) => {
+    Settings.client.writeData({
+      data: {
+        toLanguageCode,
+        toLanguageId,
+      },
+    })
   }
 
   private translate = async (from: string, to: string, text: string) => {
-    // const { General } = this.props
     const result = await translateData(from ? `&from=${from}` : '', to, text)
-    // if (result.data.error === null) {
-    //   General.setInputs({ languageTranslated: result.data.result.translated })
-    // } else {
-    //   General.setInputs({ languageTranslated: result.data.error })
-    // }
+
+    if (result.data.error === null) {
+      Settings.client.writeData({
+        data: {
+          languageTranslated: result.data.result.translated,
+        },
+      })
+    } else {
+      Settings.client.writeData({
+        data: {
+          languageTranslated: result.data.error,
+        },
+      })
+    }
   }
 
   private shakeLanguages = (
@@ -125,33 +120,45 @@ export default class MainContainer extends React.Component {
     toLanguageId: string,
     fromLanguageId: string,
   ) => {
-    // const { General } = this.props
-    // General.shakeLanguages(toLanguageCode, fromLanguageCode, toLanguageId, fromLanguageId)
+    Settings.client.writeData({
+      data: {
+        fromLanguageCode: toLanguageCode,
+        fromLanguageId: toLanguageId,
+        toLanguageCode: fromLanguageCode,
+        toLanguageId: fromLanguageId === '0' ? '1' : fromLanguageId,
+      },
+    })
   }
 
   private startVoiceRecognize = (fromLanguageCode: string) => {
-    // try {
-    //   Voice.start(fromLanguageCode) // en-US
-    // } catch (e) {
-    //   console.log(e, 'startVoiceRecognizeError')
-    // }
+    try {
+      Voice.start(fromLanguageCode) // en-US
+    } catch (e) {
+      console.log(e, 'startVoiceRecognizeError')
+    }
   }
 
   private stopVoiceRecognize = () => {
-    // try {
-    //   Voice.stop()
-    // } catch (e) {
-    //   console.log(e, 'stopVoiceRecognizeError')
-    // }
+    try {
+      Voice.stop()
+    } catch (e) {
+      console.log(e, 'stopVoiceRecognizeError')
+    }
   }
 
   private onSpeechResultsHandler = (event: ISpeechResults) => {
-    // const { General } = this.props
-    // General.setInputs({ languageSource: event.value[event.value.length - 1] })
+    Settings.client.writeData({
+      data: {
+        languageSource: event.value[event.value.length - 1],
+      },
+    })
   }
 
   private typeTextForTranslating = (languageSource: string) => {
-    // const { General } = this.props
-    // General.setInputs({ languageSource })
+    Settings.client.writeData({
+      data: {
+        languageSource,
+      },
+    })
   }
 }
