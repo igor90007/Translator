@@ -1,7 +1,15 @@
+import { gql } from 'apollo-boost'
+
 import credentialsData from 'src/credentials.json'
-import stores from 'src/stores'
 
 const Settings = {
+  GET_POKEMONS: gql(`
+    query getPokemons {
+      user @client {
+        name
+      }
+    }
+  `),
   credentials: credentialsData,
   languages: [
     { Language: 'Detect Language', Code: '', key: '0' },
@@ -22,7 +30,6 @@ const Settings = {
     { Language: 'Turkish', Code: 'tr', key: '15' },
     { Language: 'Ukrainian', Code: 'uk', key: '16' },
   ],
-  stores: stores(),
 }
 
 export default Settings

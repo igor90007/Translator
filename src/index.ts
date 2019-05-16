@@ -4,10 +4,7 @@ import { createAppContainer, NavigationContainerComponent } from 'react-navigati
 import { createAppComponentProvider } from 'src/appComponentProvider'
 
 import Navigator from 'src/config/Routes'
-import Settings from 'src/config/Settings'
 import theme from 'src/config/Theme'
-
-Settings.stores.General.checkConnection()
 
 theme()
 

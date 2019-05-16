@@ -40,7 +40,7 @@ class GeneralStore {
   @action checkConnection = () => {
     setInterval(async () => {
       const connection = await checkConnectivity()
-      // console.log(connection, 'connection')
+
       if (connection) {
         this.offline = false
       } else {
