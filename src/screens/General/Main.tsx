@@ -13,7 +13,7 @@ export interface IProps {
 const General: React.FC<IProps> = ({
   startVoiceRecognize = () => null,
   stopVoiceRecognize = () => null,
-  languageSource = 'Welcome to React Native!',
+  languageSource = '',
 }) => {
   return (
     <View style={styles.container}>
@@ -29,17 +29,44 @@ export default General
 const styles = EStyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '$background',
     flex: 1,
     justifyContent: 'center',
   },
-  instructions: {
+  input: {
+    backgroundColor: '$background',
+    borderColor: '$grey',
+    borderWidth: '$borderWidth / 4',
+    flex: 0.5,
+  },
+  itemActiveStyle: {
     color: '$textColor',
-    marginBottom: wp('1%'),
-    textAlign: 'center',
+    padding: wp('1%'),
+  },
+  itemStyle: {
+    padding: wp('1%'),
+  },
+  languageShaker: {
+    backgroundColor: '$background',
+    padding: wp('2%'),
+  },
+  row: {
+    alignItems: 'center',
+    borderBottomWidth: '$borderWidth',
+    borderColor: '$grey',
+    borderTopWidth: '$borderWidth',
+    flexDirection: 'row',
+    width: wp('100%'),
+  },
+  rowInput: {
+    alignItems: 'center',
+    borderBottomWidth: '$borderWidth',
+    borderColor: '$grey',
+    borderTopWidth: '$borderWidth',
+    flexDirection: 'row',
+    marginBottom: wp('3%'),
+    width: wp('100%'),
   },
   welcome: {
-    fontSize: '$textDefault',
     margin: wp('2%'),
     textAlign: 'center',
   },
