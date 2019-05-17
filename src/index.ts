@@ -4,7 +4,10 @@ import { createAppContainer, NavigationContainerComponent } from 'react-navigati
 
 import { createAppComponentProvider } from './appComponentProvider'
 
-import Navigator from './config/Routes'
+import Navigator from 'src/config/Routes'
+import theme from 'src/config/Theme'
+
+theme()
 
 // @observer
 export default class Application {
