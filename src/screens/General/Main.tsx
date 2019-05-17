@@ -19,19 +19,19 @@ export default General
 
 const styles = EStyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '$background',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  instructions: {
+    color: '$textColor',
+    marginBottom: wp('1%'),
+    textAlign: 'center',
   },
   welcome: {
     fontSize: '$textDefault',
-    textAlign: 'center',
     margin: wp('2%'),
-  },
-  instructions: {
     textAlign: 'center',
-    color: '$textColor',
-    marginBottom: wp('1%'),
   },
 })

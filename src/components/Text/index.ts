@@ -1,5 +1,3 @@
-import DefaultText from './DefaultText'
+import { IMiddleTextProps, MiddleText } from './MiddleText'
 
-import styles from './styles'
-
-export { DefaultText, styles }
+export { MiddleText, IMiddleTextProps }
