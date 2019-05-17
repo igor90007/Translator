@@ -1,6 +1,7 @@
 import React from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
+<<<<<<< HEAD
 import { Button, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -78,58 +79,32 @@ const General: React.FC<IProps> = ({
       </TouchableOpacity>
     )
   }
+=======
+import { Button, Text, View } from 'react-native'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
+export interface IProps {
+  languageSource: string
+  startVoiceRecognize(): void
+  stopVoiceRecognize(): void
+}
+
+const General: React.FC<IProps> = ({
+  startVoiceRecognize = () => null,
+  stopVoiceRecognize = () => null,
+  languageSource = '',
+}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <FlatList
-          data={Settings.languages}
-          renderItem={renderFromItem}
-          horizontal
-          initialScrollIndex={Number(fromLanguageId)}
-          getItemLayout={(data, index) => ({
-            index,
-            length: wp('13%'),
-            offset: index * wp('13%'),
-          })}
-        />
-        <TouchableOpacity style={styles.languageShaker} onPress={shakeLanguages}>
-          <Text>{`>`}</Text>
-          <Text>{`<`}</Text>
-        </TouchableOpacity>
-        <FlatList
-          data={Settings.languages}
-          renderItem={renderToItem}
-          horizontal
-          initialScrollIndex={Number(toLanguageId)}
-          getItemLayout={(data, index) => ({
-            index,
-            length: wp('13%'),
-            offset: index * wp('13%'),
-          })}
-        />
-      </View>
-      <View style={styles.rowInput}>
-        <TextInput
-          style={styles.input}
-          maxLength={99}
-          multiline={true}
-          numberOfLines={2}
-          onChangeText={(text) => (languageSource = text)}
-          value={languageSource}
-        />
-        <TextInput
-          style={styles.input}
-          editable={false}
-          multiline={true}
-          numberOfLines={2}
-          value={languageTranslated}
-        />
-      </View>
-      <Button onPress={translate} title="Translate" />
+      <Button onPress={startVoiceRecognize} title="Start recognize" />
+      <Text style={styles.welcome}>{languageSource}</Text>
+      <Button onPress={stopVoiceRecognize} title="Stop recognize" />
     </View>
   )
 }
+>>>>>>> 0020c6b014cf26850f0fb945ff10a24d436cf6d9
+
+export default General
 
 const styles = EStyleSheet.create({
   container: {
@@ -176,5 +151,3 @@ const styles = EStyleSheet.create({
     textAlign: 'center',
   },
 })
-
-export default General
