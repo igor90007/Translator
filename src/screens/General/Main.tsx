@@ -134,6 +134,7 @@ const General: React.FC<IProps> = ({
 const styles = EStyleSheet.create({
   container: {
     alignItems: 'center',
+<<<<<<< HEAD
     flex: 1,
     justifyContent: 'center',
   },
@@ -172,6 +173,19 @@ const styles = EStyleSheet.create({
     width: wp('100%'),
   },
   welcome: {
+=======
+    backgroundColor: '$background',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  instructions: {
+    color: '$textColor',
+    marginBottom: wp('1%'),
+    textAlign: 'center',
+  },
+  welcome: {
+    fontSize: '$textDefault',
+>>>>>>> origin/master
     margin: wp('2%'),
     textAlign: 'center',
   },

@@ -10,7 +10,11 @@ const theme = () =>
     $background: '#ECE6F2',
 
     // Text
+<<<<<<< HEAD
     $borderWidth: StyleSheet.hairlineWidth * 4,
+=======
+    $borderWidth: StyleSheet.hairlineWidth * 2,
+>>>>>>> origin/master
     $grey: 'rgba(0,0,0,0.1)',
     $textColor: '#2196F3',
 
