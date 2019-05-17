@@ -5,8 +5,11 @@ import { createAppComponentProvider } from 'src/appComponentProvider'
 
 import Navigator from 'src/config/Routes'
 import Settings from 'src/config/Settings'
+import theme from 'src/config/Theme'
 
-Settings.stores.General.checkConnection() // check internet connection service
+Settings.stores.General.checkConnection()
+
+theme()
 
 export default class Application {
   private static _instance: Application

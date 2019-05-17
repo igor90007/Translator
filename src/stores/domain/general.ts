@@ -1,4 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
+
 import { action, observable } from 'mobx'
 import { Platform } from 'react-native'
 
@@ -43,7 +44,7 @@ class GeneralStore {
       } else {
         this.offline = true
       }
-    }, 9999)
+    }, 999)
   }
 
   @action setInputs = (data: ILanguageData) => {

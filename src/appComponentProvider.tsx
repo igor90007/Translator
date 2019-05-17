@@ -1,11 +1,13 @@
 import React from 'react'
 
+import { Provider } from 'mobx-react/native'
 import { ComponentProvider } from 'react-native'
 import { NavigationContainer, NavigationContainerComponent } from 'react-navigation'
 
-import { IApplication } from './types'
+import { IApplication } from 'src/types'
 
-import NavigatorService from './api/Navigation/NavigationService'
+import NavigatorService from 'src/api/Navigation/NavigationService'
+import Settings from 'src/config/Settings'
 
 export function createAppComponentProvider(
   app: IApplication,
@@ -14,7 +16,11 @@ export function createAppComponentProvider(
   return () => {
     return class AppContainer extends React.Component {
       render() {
-        return <NavContainer ref={(ref) => this.setNavigatorRef(ref)} />
+        return (
+          <Provider {...Settings.stores}>
+            <NavContainer ref={(ref) => this.setNavigatorRef(ref)} />
+          </Provider>
+        )
       }
       private setNavigatorRef(navigator: NavigationContainerComponent | null) {
         if (navigator) {
