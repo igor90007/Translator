@@ -1,8 +1,8 @@
-import { observable, action } from 'mobx'
+import { action, observable } from 'mobx'
 
 import { ILanguageData, InputsModel } from 'src/models/InputsModel'
 
-class AuthStore {
+class GeneralStore {
   @observable offline = true
 
   @observable fromLanguageCode = ''
@@ -26,4 +26,4 @@ class AuthStore {
   }
 }
 
-export default AuthStore
+export default GeneralStore
