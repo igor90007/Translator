@@ -8,12 +8,15 @@ import { ILanguageData, InputsModel } from 'src/models/InputsModel'
 const checkConnectivity = () => {
   if (Platform.OS === 'android') {
     return NetInfo.isConnected.fetch().then((isConnected: boolean) => {
-      return isConnected
+       return isConnected
     })
+  if (Platform.OS === 'android') {
+    return NetInfo.isConnected.fetch().then((isConnected) => {
+      return NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChange)
+    }
   }
-
-  return NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChange)
 }
+  
 
 const handleFirstConnectivityChange = (isConnected: boolean) => {
   NetInfo.isConnected.removeEventListener('connectionChange', handleFirstConnectivityChange)
@@ -40,7 +43,6 @@ class GeneralStore {
   @action checkConnection = () => {
     setInterval(async () => {
       const connection = await checkConnectivity()
-      // console.log(connection, 'connection')
       if (connection) {
         this.offline = false
       } else {
