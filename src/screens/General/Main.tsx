@@ -171,7 +171,6 @@ const styles = EStyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-
   input: {
     backgroundColor: '$background',
     borderColor: '$grey',
@@ -209,5 +208,3 @@ const styles = EStyleSheet.create({
     width: wp('100%'),
   },
 })
-
-export default General
