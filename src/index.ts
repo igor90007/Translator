@@ -26,7 +26,7 @@ export default class Application {
 
   bootstrap() {
     const AppContainer = createAppContainer(Navigator)
-    AppRegistry.registerComponent('AwesomeProject', createAppComponentProvider(this, AppContainer))
+    AppRegistry.registerComponent('Translator', createAppComponentProvider(this, AppContainer))
   }
 
   setNavigator(navigator: NavigationContainerComponent) {

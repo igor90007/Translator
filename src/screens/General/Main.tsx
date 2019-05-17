@@ -33,6 +33,11 @@ const styles = EStyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  instructions: {
+    color: '$textColor',
+    marginBottom: wp('1%'),
+    textAlign: 'center',
+  },
   welcome: {
     fontSize: '$textDefault',
     margin: wp('2%'),
