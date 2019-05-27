@@ -6,12 +6,13 @@ import { Platform } from 'react-native'
 import { ILanguageData, InputsModel } from 'src/models/InputsModel'
 
 const checkConnectivity = () => {
+  // For Android devices
   if (Platform.OS === 'android') {
-    return NetInfo.isConnected.fetch().then((isConnected: boolean) => {
+    return NetInfo.isConnected.fetch().then((isConnected) => {
       return isConnected
     })
   }
-
+  // For iOS devices
   return NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChange)
 }
 
@@ -40,7 +41,6 @@ class GeneralStore {
   @action checkConnection = () => {
     setInterval(async () => {
       const connection = await checkConnectivity()
-      // console.log(connection, 'connection')
       if (connection) {
         this.offline = false
       } else {

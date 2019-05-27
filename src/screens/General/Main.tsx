@@ -208,3 +208,5 @@ const styles = EStyleSheet.create({
     width: wp('100%'),
   },
 })
+
+export default General
