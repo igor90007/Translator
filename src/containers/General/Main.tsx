@@ -3,12 +3,20 @@ import Voice from 'react-native-voice'
 
 import { inject, observer } from 'mobx-react'
 
-import Screen from '../../screens/General/Main'
+import Screen from 'src/screens/General/Main'
+
+import { translateData } from 'src/actions/general'
 
 export interface IProps {
   General: {
-    inputsData: { languageSource: string }
+    offline: boolean
+    fromLanguageId: string
+    toLanguageId: string
+    inputsData: { languageSource: string; languageTranslated: string }
     setInputs(data: object): void
+    shakeLanguages(param1: string, param2: string, param3: string, param4: string): void
+    setFromLanguageCode(param1: string, param2: string): void
+    setToLanguageCode(param1: string, param2: string): void
   }
 }
 
@@ -33,23 +41,66 @@ export default class MainContainer extends React.Component<IProps> {
     return (
       <Screen
         languageSource={General ? General.inputsData.languageSource : ''}
+        languageTranslated={General ? General.inputsData.languageTranslated : ''}
         startVoiceRecognize={this.startVoiceRecognize}
         stopVoiceRecognize={this.stopVoiceRecognize}
+        typeTextForTranslating={this.typeTextForTranslating}
+        shakeLanguages={this.shakeLanguages}
+        chooseFromLanguage={this.chooseFromLanguage}
+        chooseToLanguage={this.chooseToLanguage}
+        translate={this.translate}
+        fromLanguageId={General ? General.fromLanguageId : '0'}
+        toLanguageId={General ? General.toLanguageId : '16'}
+        offline={General ? General.offline : false}
       />
     )
   }
 
-  private async startVoiceRecognize() {
+  private chooseFromLanguage = (from: string, fromLanguageId: string) => {
+    const { General } = this.props
+
+    General.setFromLanguageCode(from, fromLanguageId)
+  }
+
+  private chooseToLanguage = (to: string, toLanguageId: string) => {
+    const { General } = this.props
+
+    General.setToLanguageCode(to, toLanguageId)
+  }
+
+  private translate = async (from: string, to: string, text: string) => {
+    const { General } = this.props
+    const result = await translateData(from ? `&from=${from}` : '', to, text)
+
+    if (result.data.error === null) {
+      General.setInputs({ languageTranslated: result.data.result.translated })
+    } else {
+      General.setInputs({ languageTranslated: result.data.error })
+    }
+  }
+
+  private shakeLanguages = (
+    toLanguageCode: string,
+    fromLanguageCode: string,
+    toLanguageId: string,
+    fromLanguageId: string,
+  ) => {
+    const { General } = this.props
+
+    General.shakeLanguages(toLanguageCode, fromLanguageCode, toLanguageId, fromLanguageId)
+  }
+
+  private startVoiceRecognize = (fromLanguageCode: string) => {
     try {
-      await Voice.start('en-US')
+      Voice.start(fromLanguageCode) // en-US
     } catch (e) {
       console.log(e, 'startVoiceRecognizeError')
     }
   }
 
-  private async stopVoiceRecognize() {
+  private stopVoiceRecognize = () => {
     try {
-      await Voice.stop()
+      Voice.stop()
     } catch (e) {
       console.log(e, 'stopVoiceRecognizeError')
     }
@@ -59,5 +110,11 @@ export default class MainContainer extends React.Component<IProps> {
     const { General } = this.props
 
     General.setInputs({ languageSource: event.value[event.value.length - 1] })
+  }
+
+  private typeTextForTranslating = (languageSource: string) => {
+    const { General } = this.props
+    console.log(General, 'result.data.result.translated1')
+    General.setInputs({ languageSource })
   }
 }
