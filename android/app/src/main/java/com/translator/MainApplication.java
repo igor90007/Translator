@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
-
-import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,7 +27,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new NetInfoPackage(),
             new VoicePackage(),
-            new NetInfoPackage(),
             new RNGestureHandlerPackage()
       );
     }

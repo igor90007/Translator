@@ -6,17 +6,15 @@ import { Platform } from 'react-native'
 import { ILanguageData, InputsModel } from 'src/models/InputsModel'
 
 const checkConnectivity = () => {
-  if (Platform.OS === 'android') {
-    return NetInfo.isConnected.fetch().then((isConnected: boolean) => {
-       return isConnected
-    })
+  // For Android devices
   if (Platform.OS === 'android') {
     return NetInfo.isConnected.fetch().then((isConnected) => {
-      return NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChange)
-    }
+      return isConnected
+    })
   }
+  // For iOS devices
+  return NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChange)
 }
-  
 
 const handleFirstConnectivityChange = (isConnected: boolean) => {
   NetInfo.isConnected.removeEventListener('connectionChange', handleFirstConnectivityChange)
