@@ -140,10 +140,6 @@ android {
 dependencies {
     implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-voice')
-<<<<<<< HEAD
-=======
-    implementation project(':@react-native-community_netinfo')
->>>>>>> 34f362b5a81054208929232e6dc62a71ede39afc
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

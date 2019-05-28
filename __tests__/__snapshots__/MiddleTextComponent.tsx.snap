@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MiddleText component with null properties 1`] = `
+<Text
+  style={
+    Array [
+      undefined,
+      undefined,
+    ]
+  }
+/>
+`;
+
+exports[`renders correctly MiddleText component 1`] = `
+<Text
+  style={
+    Array [
+      undefined,
+      Object {
+        "color": "red",
+      },
+    ]
+  }
+>
+  test
+</Text>
+`;
