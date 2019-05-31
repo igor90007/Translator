@@ -96,7 +96,7 @@ const General: React.FC<IProps> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View testID='welcome' style={styles.container}>
       {offline && <Text style={styles.connectionLost}>connection lost</Text>}
       <View style={styles.row}>
         <FlatList
