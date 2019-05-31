@@ -15,7 +15,7 @@
     "preserveSymlinks": true,
     "strict": true,
     "target": "es6",
-    "types": ["react", "react-native"],
+    "types": ["react", "react-native", "jest"],
     "paths": {
       "jest": ["node_modules/@types/jest/index.d.ts"],
     }
