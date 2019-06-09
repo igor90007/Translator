@@ -1,5 +1,5 @@
-package com.example;
-
+package com.translator.test;
+import com.translator.MainActivity;
 import com.wix.detox.Detox;
 
 import org.junit.Rule;

@@ -1,19 +1,24 @@
 describe('Example', () => {
   beforeEach(async () => {
-    // await device.reloadReactNative();
+    await device.reloadReactNative()
   })
 
-  it('should have welcome screen', async () => {
-    await expect(element(by.id('welcome'))).toBeVisible()
+  it('should have main screen', async () => {
+    await expect(element(by.id('main'))).toBeVisible()
   })
 
-  it('should show hello screen after tap', async () => {
-    await element(by.id('hello_button')).tap()
-    await expect(element(by.text('Hello!!!'))).toBeVisible()
+  it('should translate text', async () => {
+    await element(by.id('sourceInput')).typeText('end-to-end test')
+    await element(by.id('translateButton')).tap()
   })
 
-  it('should show world screen after tap', async () => {
-    await element(by.id('world_button')).tap()
-    await expect(element(by.text('World!!!'))).toBeVisible()
+  it('should rotate languages', async () => {
+    await element(by.id('doShakeLanguages')).tap()
+    await element(by.id('translateButton')).tap()
+  })
+
+  it('should recognize a voice', async () => {
+    await element(by.id('startRecognize')).tap()
+    await element(by.id('stopVoiceRecognize')).tap()
   })
 })

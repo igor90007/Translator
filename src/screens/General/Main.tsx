@@ -96,7 +96,7 @@ const General: React.FC<IProps> = ({
   }
 
   return (
-    <View testID='welcome' style={styles.container}>
+    <View testID="main" style={styles.container}>
       {offline && <Text style={styles.connectionLost}>connection lost</Text>}
       <View style={styles.row}>
         <FlatList
@@ -111,7 +111,7 @@ const General: React.FC<IProps> = ({
             offset: index * wp('15%'),
           })}
         />
-        <TouchableOpacity style={styles.languageShaker} onPress={doShakeLanguages}>
+        <TouchableOpacity testID="doShakeLanguages" style={styles.languageShaker} onPress={doShakeLanguages}>
           <Text>{`>`}</Text>
           <Text>{`<`}</Text>
         </TouchableOpacity>
@@ -129,11 +129,12 @@ const General: React.FC<IProps> = ({
         />
       </View>
       <View style={styles.buttonRow}>
-        <Button onPress={startRecognize} title="Start recognize" />
-        <Button onPress={stopVoiceRecognize} title="Stop recognize" />
+        <Button testID="startRecognize" onPress={startRecognize} title="Start recognize" />
+        <Button testID="stopVoiceRecognize" onPress={stopVoiceRecognize} title="Stop recognize" />
       </View>
       <View style={styles.rowInput}>
         <TextInput
+          testID="sourceInput"
           style={styles.input}
           maxLength={99}
           multiline={true}
@@ -149,7 +150,7 @@ const General: React.FC<IProps> = ({
           value={languageTranslated}
         />
       </View>
-      <Button onPress={doTranslate} title="Translate" />
+      <Button testID="translateButton" onPress={doTranslate} title="Translate" />
     </View>
   )
 }
